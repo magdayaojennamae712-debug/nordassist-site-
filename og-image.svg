@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0E2A47"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="22" height="630" fill="#C8512A"/>
+
+  <!-- NordAssist eyebrow -->
+  <text x="80" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" letter-spacing="6">NORDASSIST</text>
+
+  <!-- Tagline eyebrow -->
+  <text x="80" y="142" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#E8B49A" letter-spacing="3">FOR NORDIC TECH FOUNDERS</text>
+
+  <!-- Main headline (two lines) -->
+  <text x="80" y="270" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#FFFFFF">Take admin off</text>
+  <text x="80" y="360" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#FFFFFF">your calendar.</text>
+
+  <!-- Subline -->
+  <text x="80" y="430" font-family="Arial, sans-serif" font-size="26" font-style="italic" fill="#E8B49A">Trained, dedicated virtual assistants.</text>
+  <text x="80" y="466" font-family="Arial, sans-serif" font-size="26" font-style="italic" fill="#E8B49A">Fully managed. From €1,100/month.</text>
+
+  <!-- Bottom row -->
+  <text x="80" y="570" font-family="Arial, sans-serif" font-size="20" font-weight="500" fill="#FFFFFF">nordassist.co</text>
+  <text x="1120" y="570" text-anchor="end" font-family="Arial, sans-serif" font-size="20" font-style="italic" fill="#E8B49A">Live in 5–7 days · Two-week paid trial</text>
+
+  <!-- Decorative dot -->
+  <circle cx="1080" cy="120" r="60" fill="#C8512A" opacity="0.18"/>
+  <circle cx="1100" cy="100" r="40" fill="#C8512A" opacity="0.28"/>
+</svg>
