@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pricing — NordAssist | Simple Monthly Plans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;
+  --bg-soft:#f4f6fb;
+  --bg-cream:#faf7f2;
+  --bg-dark:#080e1e;
+  --text:#080e1e;
+  --text-soft:#3d4558;
+  --muted:#7a8499;
+  --line:#e4e7f0;
+  --line-strong:#cdd1de;
+  --accent:#0f1e3d;
+  --accent-2:#1e3560;
+  --accent-soft:#e8ecf6;
+  --copper:#b8704e;
+  --copper-soft:#f5e2d8;
+  --green:#166b43;
+  --red:#9b3535;
+  --shadow-sm:0 1px 3px rgba(8,14,30,0.06),0 2px 6px rgba(8,14,30,0.04);
+  --shadow-md:0 4px 12px rgba(8,14,30,0.07),0 12px 32px rgba(8,14,30,0.06);
+  --shadow-lg:0 8px 24px rgba(8,14,30,0.07),0 28px 56px rgba(8,14,30,0.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:"Inter",-apple-system,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+.container{max-width:1160px;margin:0 auto;padding:0 32px}
+.container.narrow{max-width:900px}
+
+/* NAV */
+header.nav{
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:100;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.logo{font-weight:700;font-size:1.1rem;letter-spacing:-0.025em;display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none}
+.logo-mark{width:32px;height:32px;border-radius:8px;box-shadow:0 2px 10px rgba(8,14,30,0.2);flex-shrink:0}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);font-size:0.92rem;font-weight:500;text-decoration:none;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:6px;font-weight:500;font-size:0.95rem;transition:all 0.2s;border:1px solid transparent;cursor:pointer;font-family:inherit;text-decoration:none}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 8px 20px rgba(8,14,30,0.2)}
+.btn-secondary{background:#fff;color:var(--accent);border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+.btn-secondary:hover{border-color:var(--accent);transform:translateY(-2px)}
+.btn .arrow{transition:transform 0.2s}
+.btn:hover .arrow{transform:translateX(4px)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* EYEBROW */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.76rem;color:var(--accent);background:var(--accent-soft);padding:5px 14px;border-radius:999px;margin-bottom:22px;letter-spacing:0.06em;font-weight:700;text-transform:uppercase;border:1px solid rgba(15,30,61,0.1)}
+.eyebrow::before{content:"";width:5px;height:5px;background:var(--copper);border-radius:50%}
+
+/* HERO */
+.pricing-hero{
+  padding:80px 0 60px;
+  background:radial-gradient(ellipse 900px 400px at 70% 0%,rgba(15,30,61,0.06),transparent 60%),var(--bg);
+  position:relative;overflow:hidden;
+}
+.pricing-hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(8,14,30,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(8,14,30,0.025) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(ellipse 900px 400px at 50% 50%,#000 20%,transparent 70%);
+  pointer-events:none;
+}
+.pricing-hero-inner{text-align:center;position:relative;z-index:1}
+.pricing-hero h1{font-family:"Fraunces",serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:500;letter-spacing:-0.035em;line-height:1.05;margin-bottom:1rem}
+.pricing-hero p{font-size:1.1rem;color:var(--text-soft);max-width:540px;margin:0 auto 2rem;line-height:1.7}
+.trial-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--bg-cream);border:1px solid rgba(184,112,78,0.25);
+  border-radius:999px;padding:8px 20px;font-size:0.88rem;color:var(--text-soft);
+  margin-bottom:3rem;
+}
+.trial-badge strong{color:var(--copper);font-weight:600}
+
+/* PLAN CARDS */
+.plans-wrap{padding:0 0 80px;background:var(--bg-soft)}
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding-top:0;margin-top:-1px}
+
+.plan-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;transition:all 0.3s;position:relative;
+}
+.plan-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.plan-card.featured{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px var(--accent),var(--shadow-md);
+}
+
+/* Plan top color band */
+.plan-band{height:6px;background:var(--line)}
+.plan-card.featured .plan-band{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.plan-card:not(.featured) .plan-band{background:linear-gradient(90deg,var(--copper),#d4896a)}
+
+.plan-top{padding:36px 36px 0}
+.popular-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent);color:#fff;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  padding:5px 14px;border-radius:999px;margin-bottom:20px;
+}
+.plan-name{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.plan-price{font-family:"Fraunces",serif;font-size:clamp(2.4rem,4vw,3rem);font-weight:500;color:var(--text);letter-spacing:-0.03em;line-height:1;margin-bottom:6px}
+.plan-price small{font-size:1rem;color:var(--muted);font-weight:400;font-family:"Inter",sans-serif}
+.plan-hours{font-size:0.88rem;color:var(--muted);margin-bottom:6px}
+.plan-desc{font-size:0.95rem;color:var(--text-soft);margin-bottom:28px;line-height:1.55}
+.plan-divider{height:1px;background:var(--line);margin:0 36px}
+
+/* Features */
+.plan-features{padding:24px 36px}
+.plan-feat-group-title{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;margin-top:20px}
+.plan-feat-group-title:first-child{margin-top:0}
+.plan-feat{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.plan-feat:last-child{border-bottom:none}
+.feat-check{width:20px;height:20px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:1px;position:relative}
+.feat-check::after{content:"";position:absolute;left:5px;top:6px;width:5px;height:9px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg)}
+.plan-feat-text{font-size:0.93rem;color:var(--text-soft);line-height:1.45}
+.plan-feat-text strong{color:var(--text);font-weight:600;display:block;font-size:0.95rem}
+
+/* Tools row */
+.plan-tools{padding:0 36px 20px}
+.tools-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tools-list{display:flex;flex-wrap:wrap;gap:6px}
+.tool-pill{font-size:0.75rem;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(15,30,61,0.1);font-weight:500}
+
+/* CTA area */
+.plan-cta{padding:24px 36px 36px;background:var(--bg-soft)}
+.plan-card.featured .plan-cta{background:var(--accent-soft)}
+.plan-cta .btn{width:100%;justify-content:center;margin-bottom:10px}
+.plan-cta-note{font-size:0.8rem;color:var(--muted);text-align:center;line-height:1.5}
+
+/* Ideal for tag */
+.ideal-strip{
+  margin:0 36px 24px;padding:14px 18px;
+  background:var(--bg-cream);border-left:3px solid var(--copper);
+  border-radius:0 8px 8px 0;font-size:0.88rem;color:var(--text-soft);line-height:1.55;
+}
+.ideal-strip strong{color:var(--text);font-weight:600}
+
+/* COMPARE */
+.compare-section{padding:80px 0;background:var(--bg)}
+.compare-section h2{font-family:"Fraunces",serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;letter-spacing:-0.025em;margin-bottom:8px}
+.compare-section .sub{font-size:0.97rem;color:var(--text-soft);max-width:560px;margin-bottom:36px}
+
+.compare-table{border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--line)}
+.compare-head{display:grid;grid-template-columns:1.6fr 1.1fr 1fr 1fr}
+.compare-head>div{padding:18px 24px;font-size:0.88rem;font-weight:600;color:var(--text);background:var(--bg-soft);border-right:1px solid var(--line)}
+.compare-head>div:last-child{border-right:none}
+.compare-head .ch-nord{background:var(--accent);color:#fff;font-size:0.9rem}
+.compare-head .ch-nord span{display:block;font-size:0.7rem;opacity:0.7;font-weight:400;margin-top:2px}
+
+.compare-row{display:grid;grid-template-columns:1.6fr 1.1fr 1fr 1fr;border-top:1px solid var(--line)}
+.compare-row:hover{background:var(--bg-soft)}
+.compare-row>div{padding:16px 24px;font-size:0.92rem;color:var(--text-soft);border-right:1px solid var(--line);display:flex;align-items:center;gap:6px}
+.compare-row>div:last-child{border-right:none}
+.compare-row .c-label{color:var(--text);font-weight:600;background:var(--bg-soft);font-size:0.9rem}
+.compare-row .c-nord{background:rgba(15,30,61,0.03);color:var(--text);font-weight:500}
+.c-yes{color:var(--green);font-weight:700;font-size:0.9rem}
+.c-no{color:var(--red);font-weight:700;font-size:0.9rem}
+.c-tag{display:inline-block;font-size:0.78rem;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-left:4px}
+
+/* STEPS */
+.steps-section{padding:80px 0;background:var(--bg-soft)}
+.steps-section h2{font-family:"Fraunces",serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;letter-spacing:-0.025em;margin-bottom:8px}
+.steps-section .sub{font-size:0.97rem;color:var(--text-soft);max-width:560px;margin-bottom:36px}
+.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;position:relative}
+.steps-row::before{content:"";position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,var(--accent),var(--copper));opacity:0.2;z-index:0}
+.step-box{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 18px;
+  text-align:center;transition:all 0.25s;position:relative;z-index:1;
+}
+.step-box:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--accent)}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Fraunces",serif;font-size:1rem;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step-box.s2 .step-num{background:var(--accent-2)}
+.step-box.s3 .step-num{background:var(--copper)}
+.step-box.s4 .step-num{background:var(--copper)}
+.step-box.s5 .step-num{background:var(--green)}
+.step-time{font-family:"Fraunces",serif;font-size:1.3rem;font-weight:500;color:var(--text);margin-bottom:6px;letter-spacing:-0.02em}
+.step-label{font-size:0.78rem;font-weight:700;color:var(--copper);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.step-desc{font-size:0.83rem;color:var(--muted);line-height:1.5}
+
+/* TRUST STRIP */
+.trust-strip{
+  background:var(--bg-dark);padding:60px 0;
+}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.trust-item{display:flex;align-items:flex-start;gap:16px}
+.trust-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.trust-item h4{color:#fff;font-size:0.97rem;font-weight:600;margin-bottom:5px}
+.trust-item p{color:#7a8fa8;font-size:0.88rem;line-height:1.55;margin:0}
+
+/* FAQ */
+.faq-section{padding:80px 0;background:var(--bg)}
+.faq-section h2{font-family:"Fraunces",serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;letter-spacing:-0.025em;margin-bottom:36px}
+.faq-list{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;cursor:pointer;font-family:inherit;font-size:1rem;font-weight:600;color:var(--text);text-align:left;transition:color 0.2s}
+.faq-btn:hover{color:var(--copper)}
+.faq-icon{width:26px;height:26px;border-radius:50%;border:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--muted);transition:all 0.3s;flex-shrink:0}
+.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s;font-size:0.95rem;color:var(--text-soft);line-height:1.7}
+.faq-item.open .faq-answer{max-height:200px;padding-bottom:20px}
+
+/* FINAL CTA */
+.final-cta{
+  padding:100px 0;text-align:center;
+  background:radial-gradient(ellipse 800px 400px at 50% 0%,rgba(15,30,61,0.07),transparent 65%),var(--bg-soft);
+}
+.final-cta h2{font-family:"Fraunces",serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:500;letter-spacing:-0.025em;max-width:600px;margin:0 auto 16px}
+.final-cta p{color:var(--text-soft);max-width:480px;margin:0 auto 32px;font-size:1rem}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:24px}
+.footer-grid h4{color:#fff;font-size:0.85rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px}
+.footer-grid a{display:block;color:#8a96aa;padding:5px 0;font-size:0.9rem;text-decoration:none;transition:color 0.2s}
+.footer-grid a:hover{color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;font-size:0.84rem;gap:12px;flex-wrap:wrap}
+.footer-bottom a{color:#8a96aa;text-decoration:none}
+.footer-bottom a:hover{color:#fff}
+.footer-logo{color:#fff;font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+
+/* REVEAL */
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:0.1s}
+  .reveal.d2{transition-delay:0.2s}
+  .reveal.d3{transition-delay:0.3s}
+  .reveal.d4{transition-delay:0.4s}
+  .reveal.d5{transition-delay:0.5s}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .plans-grid{grid-template-columns:1fr}
+  .compare-head,.compare-row{grid-template-columns:1fr}
+  .compare-head>div,.compare-row>div{border-right:none;border-bottom:1px solid var(--line)}
+  .compare-row>div:last-child{border-bottom:none}
+  .steps-row{grid-template-columns:repeat(2,1fr)}
+  .trust-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:560px){
+  .steps-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .container{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="/">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0f1e3d"/><stop offset="100%" stop-color="#1e3560"/></linearGradient></defs>
+        <rect width="100" height="100" rx="22" fill="url(#g1)"/>
+        <g stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none">
+          <line x1="32" y1="26" x2="32" y2="74"/><line x1="68" y1="26" x2="68" y2="74"/><line x1="32" y1="36" x2="68" y2="64"/>
+        </g>
+        <circle cx="68" cy="26" r="5" fill="#b8704e"/>
+      </svg>
+      NordAssist
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="#" class="active">Pricing</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+    </ul>
+    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="pricing-hero">
+  <div class="container">
+    <div class="pricing-hero-inner">
+      <span class="eyebrow reveal">Pricing</span>
+      <h1 class="reveal d1">Simple monthly plans.<br>No long contracts.</h1>
+      <p class="reveal d2">Pause or cancel with 30 days' notice. All plans include a dedicated assistant, account manager, and backup coverage.</p>
+      <div class="trial-badge reveal d3">
+        ✨ <strong>2-week paid trial available</strong> — walk away free if it's not the right fit
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<div class="plans-wrap">
+  <div class="container narrow">
+    <div class="plans-grid">
+
+      <!-- STARTER -->
+      <div class="plan-card reveal">
+        <div class="plan-band"></div>
+        <div class="plan-top">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price">€1,100<small> / month</small></div>
+          <div class="plan-hours">~40 hours per month</div>
+          <div class="plan-desc">Best for solo founders and consultants who need consistent admin support without a full-time hire.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat-group-title">Core support</div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>One dedicated assistant</strong>Always the same person — never a rotating pool.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Inbox &amp; calendar management</strong>Triage, labelling, scheduling, meeting prep.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Admin &amp; follow-up support</strong>Task tracking, follow-ups, document prep, filing.</div>
+          </div>
+          <div class="plan-feat-group-title">Management &amp; security</div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Account manager &amp; oversight</strong>Your dedicated point of contact — no tickets.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Backup coverage during absences</strong>Trained backup steps in seamlessly.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>GDPR-aligned &amp; NDA-signed</strong>Full confidentiality from day one.</div>
+          </div>
+        </div>
+        <div class="plan-tools">
+          <div class="tools-label">Works in your tools</div>
+          <div class="tools-list">
+            <span class="tool-pill">Gmail</span>
+            <span class="tool-pill">Google Calendar</span>
+            <span class="tool-pill">Notion</span>
+            <span class="tool-pill">Slack</span>
+            <span class="tool-pill">HubSpot</span>
+            <span class="tool-pill">Trello</span>
+            <span class="tool-pill">Calendly</span>
+            <span class="tool-pill">1Password</span>
+          </div>
+        </div>
+        <div class="ideal-strip">
+          <strong>Ideal for:</strong> Solo founders, independent consultants, fractional executives who need 10–15 hours/week of reliable support.
+        </div>
+        <div class="plan-cta">
+          <a href="mailto:hello@nordassist.co?subject=Starter%20plan%20inquiry%20%E2%80%94%20%E2%82%AC1%2C100%2Fmonth&body=Hi%20NordAssist%2C%0A%0AI%27m%20interested%20in%20the%20Starter%20plan%20(~40%20hours%2Fmonth%2C%20%E2%82%AC1%2C100).%0A%0AA%20few%20things%20about%20me%3A%0A-%20Company%3A%20%0A-%20Role%3A%20%0A-%20Top%203%20things%20I%27d%20want%20to%20hand%20off%3A%20%0A%0AHappy%20to%20jump%20on%20a%2030-min%20call.%0A%0AThanks%2C" class="btn btn-secondary">Choose Starter</a>
+          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day to book your discovery call.</div>
+        </div>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="plan-card featured reveal d1">
+        <div class="plan-band"></div>
+        <div class="plan-top">
+          <div class="popular-badge">⭐ Most Popular</div>
+          <div class="plan-name">Growth</div>
+          <div class="plan-price">€1,800<small> / month</small></div>
+          <div class="plan-hours">~80 hours per month</div>
+          <div class="plan-desc">Best for funded startups and small teams who need near-full-time operational coverage and faster execution.</div>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat-group-title">Everything in Starter, plus</div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Near full-time coverage</strong>~80 hours/month — your VA is essentially part of your team.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Priority response in working hours</strong>Same-day response during EU hours. Always first in line.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Light project &amp; ops work</strong>Process docs, team comms, light project coordination.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>CRM management</strong>Pipeline clean, contacts current, data always up to date.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Reporting &amp; board prep</strong>Weekly recaps, briefing notes, investor updates.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Dedicated onboarding lead</strong>Hands-on specialist for your first 2 weeks.</div>
+          </div>
+        </div>
+        <div class="plan-tools">
+          <div class="tools-label">Works in your tools</div>
+          <div class="tools-list">
+            <span class="tool-pill">Google Workspace</span>
+            <span class="tool-pill">Notion / Confluence</span>
+            <span class="tool-pill">Slack / Teams</span>
+            <span class="tool-pill">HubSpot / Salesforce</span>
+            <span class="tool-pill">Jira / Linear</span>
+            <span class="tool-pill">Asana / ClickUp</span>
+            <span class="tool-pill">QuickBooks / Xero</span>
+            <span class="tool-pill">Zoom</span>
+          </div>
+        </div>
+        <div class="ideal-strip">
+          <strong>Ideal for:</strong> Funded startup founders, scaling companies, and small teams who need near-full-time support without local hire overhead.
+        </div>
+        <div class="plan-cta">
+          <a href="mailto:hello@nordassist.co?subject=Growth%20plan%20inquiry%20%E2%80%94%20%E2%82%AC1%2C800%2Fmonth&body=Hi%20NordAssist%2C%0A%0AI%27m%20interested%20in%20the%20Growth%20plan%20(~80%20hours%2Fmonth%2C%20%E2%82%AC1%2C800).%0A%0AA%20few%20things%20about%20me%3A%0A-%20Company%3A%20%0A-%20Role%3A%20%0A-%20Top%203%20things%20I%27d%20want%20to%20hand%20off%3A%20%0A%0AHappy%20to%20jump%20on%20a%2030-min%20call.%0A%0AThanks%2C" class="btn btn-primary">Choose Growth <span class="arrow">→</span></a>
+          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day to book your discovery call.</div>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;font-size:0.86rem;color:var(--muted);margin-top:20px">Prices indicative and exclude VAT. Custom plans available for teams of 3+ founders — <a href="mailto:hello@nordassist.co" style="color:var(--accent)">email us</a>.</p>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<section class="compare-section">
+  <div class="container">
+    <span class="eyebrow reveal">How we compare</span>
+    <h2 class="reveal d1">NordAssist vs. the alternatives.</h2>
+    <p class="sub reveal d2">Most founders evaluate three options. Here's how they stack up against each other in practice.</p>
+    <div class="compare-table reveal d2">
+      <div class="compare-head">
+        <div></div>
+        <div class="ch-nord">NordAssist<span>Recommended</span></div>
+        <div>Freelance platform</div>
+        <div>Local hire</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Monthly cost</div>
+        <div class="c-nord">€1,100 – €1,800 <span class="c-tag">Best value</span></div>
+        <div>€500 – €2,000+</div>
+        <div>€4,500 – €6,000+</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Time to start</div>
+        <div class="c-nord">5–7 days <span class="c-tag">Fast</span></div>
+        <div>1–3 days</div>
+        <div>6–12 weeks</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Dedicated person</div>
+        <div class="c-nord"><span class="c-yes">✓</span> One assistant</div>
+        <div><span class="c-no">✗</span> Often rotating</div>
+        <div><span class="c-yes">✓</span> Yes</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Managed quality</div>
+        <div class="c-nord"><span class="c-yes">✓</span> Account manager</div>
+        <div><span class="c-no">✗</span> You manage them</div>
+        <div><span class="c-no">✗</span> You manage them</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Backup coverage</div>
+        <div class="c-nord"><span class="c-yes">✓</span> Trained backup</div>
+        <div><span class="c-no">✗</span> None</div>
+        <div><span class="c-no">✗</span> None</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">GDPR &amp; security</div>
+        <div class="c-nord"><span class="c-yes">✓</span> NDA + DPA</div>
+        <div><span class="c-no">✗</span> Variable</div>
+        <div><span class="c-yes">✓</span> Yes</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">Cancel anytime</div>
+        <div class="c-nord"><span class="c-yes">✓</span> 30 days notice</div>
+        <div><span class="c-yes">✓</span> Yes</div>
+        <div><span class="c-no">✗</span> Severance &amp; process</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">2-week trial</div>
+        <div class="c-nord"><span class="c-yes">✓</span> Included</div>
+        <div><span class="c-no">✗</span> No</div>
+        <div><span class="c-no">✗</span> No</div>
+      </div>
+      <div class="compare-row">
+        <div class="c-label">EU working hours</div>
+        <div class="c-nord"><span class="c-yes">✓</span> Overlaps EU day</div>
+        <div>Varies</div>
+        <div><span class="c-yes">✓</span> Yes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="container">
+    <span class="eyebrow reveal">After you click</span>
+    <h2 class="reveal d1">Here's what happens next.</h2>
+    <p class="sub reveal d2">No surprises, no auto-charges, no commitment until you say yes after the trial.</p>
+    <div class="steps-row">
+      <div class="step-box reveal">
+        <div class="step-num">1</div>
+        <div class="step-label">Today</div>
+        <div class="step-time">2 min</div>
+        <div class="step-desc">Email opens. Send us your quick intro — company, role, tasks to hand off.</div>
+      </div>
+      <div class="step-box s2 reveal d1">
+        <div class="step-num">2</div>
+        <div class="step-label">Within 1 day</div>
+        <div class="step-time">&lt;24hrs</div>
+        <div class="step-desc">We reply with a Calendly link to book your 30-min discovery call.</div>
+      </div>
+      <div class="step-box s3 reveal d2">
+        <div class="step-num">3</div>
+        <div class="step-label">Discovery call</div>
+        <div class="step-time">30 min</div>
+        <div class="step-desc">We learn your work. You ask anything. Zero pressure, no commitment.</div>
+      </div>
+      <div class="step-box s4 reveal d3">
+        <div class="step-num">4</div>
+        <div class="step-label">VA matched</div>
+        <div class="step-time">5–7 days</div>
+        <div class="step-desc">We hand-pick your assistant and introduce them. You meet before saying yes.</div>
+      </div>
+      <div class="step-box s5 reveal d4">
+        <div class="step-num">5</div>
+        <div class="step-label">Paid trial</div>
+        <div class="step-time">2 weeks</div>
+        <div class="step-desc">Reduced rate. Walk away free at the end if it's not the right fit.</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.86rem;color:var(--muted);margin-top:24px;font-style:italic">You only start the full monthly plan after the two-week trial — and only if you're happy.</p>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-icon">🔒</div>
+        <div>
+          <h4>GDPR-aligned from day one</h4>
+          <p>NDAs signed before any access is granted. 1Password credential sharing with MFA. Data handling documented and reviewable.</p>
+        </div>
+      </div>
+      <div class="trust-item reveal d2">
+        <div class="trust-icon">🔄</div>
+        <div>
+          <h4>Continuity guaranteed</h4>
+          <p>Trained backup assistant covers absences. Access revoked immediately at end of engagement. You are never left without support.</p>
+        </div>
+      </div>
+      <div class="trust-item reveal d4">
+        <div class="trust-icon">🇫🇮</div>
+        <div>
+          <h4>Finland-based, EU-aligned</h4>
+          <p>Founded in Oulu, Finland. We understand Nordic business culture and the standards your clients expect. EU-aware operations throughout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container narrow">
+    <span class="eyebrow reveal">FAQ</span>
+    <h2 class="reveal d1">Common questions, answered honestly.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">How is this different from Upwork or Fiverr? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">You're not managing a freelancer. With NordAssist you get a dedicated assistant we have hired, trained, and supervised — plus an account manager who steps in if anything is off. You delegate; we handle everything else.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Will my assistant's English be strong enough? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">Yes. We screen for written and spoken English appropriate for executive correspondence, including drafting on your behalf. The Philippines has one of the largest professional English-speaking workforces in the world, and we filter aggressively.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">What about the time zone difference? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">The Philippines is 5–6 hours ahead of Finland. Our assistants work shifts that overlap with the European workday from late morning EU time onward. Some founders prefer it — work that goes in at end-of-day Finland is often done by morning.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Can I switch between Starter and Growth? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">Yes. You can upgrade or downgrade with 30 days' notice. We'll adjust your assistant's hours accordingly and keep everything running smoothly during the transition.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">What if my assistant doesn't work out? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">We cover absences with a trained backup. If the match isn't right, we replace the assistant at our cost, not yours. Continuity is part of what you're paying for.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">Do you work with founders outside Finland? <div class="faq-icon">+</div></button>
+        <div class="faq-answer">Yes. Our focus markets are Finland, Sweden, Norway, and Estonia, and we also work with founders elsewhere in the EU. The only requirement is that work is conducted in English.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <span class="eyebrow reveal" style="margin:0 auto 22px;display:table">Ready when you are</span>
+    <h2 class="reveal d1">See if NordAssist is<br>the right fit.</h2>
+    <p class="reveal d2">Book a 30-minute call to talk through your work and what you'd want to hand off. No pressure, no slides, no commitment.</p>
+    <div class="cta-btns reveal d3">
+      <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary">Book a free call <span class="arrow">→</span></a>
+      <a href="mailto:hello@nordassist.co" class="btn btn-secondary">Email us instead</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg style="width:30px;height:30px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,0.4)" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#1e3560"/>
+            <g stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none">
+              <line x1="32" y1="26" x2="32" y2="74"/><line x1="68" y1="26" x2="68" y2="74"/><line x1="32" y1="36" x2="68" y2="64"/>
+            </g>
+            <circle cx="68" cy="26" r="5" fill="#b8704e"/>
+          </svg>
+          NordAssist
+        </div>
+        <p style="color:#9aa6b8;font-size:0.9rem;max-width:280px;line-height:1.55">Dedicated executive assistants for founders in Finland, Sweden, Norway, and Estonia. Based in Oulu.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="/#how">How it works</a>
+        <a href="/#services">Services</a>
+        <a href="#">Pricing</a>
+        <a href="/about.html">About</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="/#faq">FAQ</a>
+        <a href="/#trust">Security</a>
+        <a href="/#compare">Compare</a>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <a href="https://calendly.com/nordassist-" target="_blank">Book a call</a>
+        <a href="mailto:hello@nordassist.co">hello@nordassist.co</a>
+        <a href="https://www.linkedin.com/company/nordassist-co/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 NordAssist Oy. All rights reserved.</div>
+      <div>
+        <a href="/#privacy">Privacy</a> &nbsp;·&nbsp;
+        <a href="/#terms">Terms</a> &nbsp;·&nbsp;
+        <a href="/#dpa">Data Processing</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
