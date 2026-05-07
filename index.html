@@ -1245,63 +1245,6 @@
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   }
 
-
-  /* ── MOBILE HAMBURGER NAV ── */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 6px;
-    background: none;
-    border: none;
-    z-index: 300;
-  }
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-  @media (max-width: 720px) {
-    .hamburger { display: flex; }
-    .nav-links {
-      display: none !important;
-      position: fixed;
-      top: 68px; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(20px);
-      flex-direction: column !important;
-      align-items: center;
-      justify-content: center;
-      gap: 0 !important;
-      z-index: 200;
-      padding: 20px 0;
-    }
-    .nav-links.mobile-open {
-      display: flex !important;
-    }
-    .nav-links li, .nav-links a {
-      width: 100%;
-      text-align: center;
-    }
-    .nav-links a {
-      display: block;
-      padding: 18px 40px !important;
-      font-size: 1.2rem !important;
-      font-weight: 500 !important;
-      color: var(--text) !important;
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-links a:hover { color: var(--accent) !important; background: var(--bg-soft); }
-    .nav-cta-wrap { display: none; }
-  }
 </style>
 </head>
 <body>
@@ -1327,18 +1270,18 @@
       </svg>
       NordAssist
     </div>
-    <nav class="nav-links">
-      <a href="#how">How it works</a>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary mobile-book-btn">Book a call →</a></li>
+    </ul>
     <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+  
+    <button class="hamburger" id="ham-btn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div></header>
 
 <!-- ============== HERO ============== -->
 <section class="hero">
@@ -1941,6 +1884,64 @@
   .detail-features { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) { .psteps { grid-template-columns: 1fr; } }
+
+  /* ── MOBILE NAV ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    z-index: 300;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-btn-desktop { display: none !important; }
+    .nav-links {
+      display: none !important;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff;
+      flex-direction: column !important;
+      align-items: center;
+      justify-content: center;
+      gap: 0 !important;
+      z-index: 200;
+      padding: 80px 0 40px;
+    }
+    .nav-links.open { display: flex !important; }
+    .nav-links li { width: 100%; text-align: center; list-style: none; }
+    .nav-links a {
+      display: block !important;
+      width: 100%;
+      text-align: center;
+      padding: 20px 40px !important;
+      font-size: 1.2rem !important;
+      font-weight: 500 !important;
+      color: var(--text) !important;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-links a:hover { background: var(--bg-soft); color: var(--accent) !important; }
+    .mobile-book-btn {
+      margin-top: 28px;
+      padding: 16px 40px !important;
+      font-size: 1rem !important;
+    }
+  }
 </style>
 
 <section id="pricing" style="background: var(--bg-soft);">
@@ -2834,26 +2835,24 @@ function toggleDetail(plan) {
   });
 </script>
 
-
 <script>
-(function() {
-  var ham = document.getElementById('hamburger');
+(function(){
+  var btn = document.getElementById('ham-btn');
   var nav = document.querySelector('.nav-links');
-  if (!ham || !nav) return;
-  ham.addEventListener('click', function() {
-    ham.classList.toggle('open');
-    nav.classList.toggle('mobile-open');
-    document.body.style.overflow = nav.classList.contains('mobile-open') ? 'hidden' : '';
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
   });
-  nav.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      ham.classList.remove('open');
-      nav.classList.remove('mobile-open');
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      btn.classList.remove('open');
+      nav.classList.remove('open');
       document.body.style.overflow = '';
     });
   });
 })();
 </script>
-
 </body>
 </html>
