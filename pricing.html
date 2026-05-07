@@ -57,6 +57,17 @@ header.nav{
 .btn .arrow{transition:transform 0.2s}
 .btn:hover .arrow{transform:translateX(4px)}
 @media(max-width:720px){.nav-links{display:none}}
+  .ham-btn{display:none;flex-direction:column;gap:5px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;background:none;border:1px solid #e4e7f0;border-radius:6px;padding:0}
+  .ham-btn span{display:block;width:18px;height:2px;background:#080e1e;border-radius:2px;transition:all 0.25s ease}
+  .ham-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .ham-btn.is-open span:nth-child(2){opacity:0;width:0}
+  .ham-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:0}
+  .mobile-menu.is-open{display:flex}
+  .mobile-menu a{font-family:"Inter",sans-serif;font-size:1.4rem;font-weight:500;color:#080e1e;text-decoration:none;padding:20px 60px;width:100%;text-align:center;border-bottom:1px solid #e4e7f0;transition:background 0.15s}
+  .mobile-menu a:last-child{border-bottom:none}
+  .mobile-menu .m-book{margin-top:28px;background:#0f1e3d;color:#fff!important;border-radius:6px;padding:16px 48px!important;width:auto!important;border:none!important;font-size:1rem!important}
+  @media(max-width:720px){.ham-btn{display:flex}.nav-btn-hide{display:none!important}}
 
 /* EYEBROW */
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.76rem;color:var(--accent);background:var(--accent-soft);padding:5px 14px;border-radius:999px;margin-bottom:22px;letter-spacing:0.06em;font-weight:700;text-transform:uppercase;border:1px solid rgba(15,30,61,0.1)}
@@ -260,92 +271,17 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
   .footer-grid{grid-template-columns:1fr}
   .container{padding:0 20px}
 }
-
-  /* ── MOBILE NAV ── */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px;
-    background: none;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    z-index: 1000;
-    position: relative;
-  }
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-  @media (max-width: 768px) {
-    .hamburger { display: flex; }
-    .nav-btn-desktop { display: none !important; }
-    .nav-links {
-      display: none !important;
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background: rgba(255,255,255,0.99) !important;
-      backdrop-filter: blur(10px) !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 0 !important;
-      z-index: 999 !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      list-style: none !important;
-      overflow-y: auto !important;
-    }
-    .nav-links.open { display: flex !important; }
-    .nav-links li {
-      width: 100% !important;
-      text-align: center !important;
-      list-style: none !important;
-    }
-    .nav-links a {
-      display: block !important;
-      width: 100% !important;
-      text-align: center !important;
-      padding: 22px 40px !important;
-      font-size: 1.3rem !important;
-      font-weight: 500 !important;
-      color: var(--text) !important;
-      border-bottom: 1px solid var(--line) !important;
-      text-decoration: none !important;
-      background: transparent !important;
-      letter-spacing: -0.01em !important;
-    }
-    .nav-links a:last-of-type { border-bottom: none !important; }
-    .mobile-book-btn {
-      margin-top: 32px !important;
-      padding: 16px 48px !important;
-      font-size: 1rem !important;
-      border-radius: 6px !important;
-      background: var(--accent) !important;
-      color: #fff !important;
-      border: none !important;
-      display: inline-flex !important;
-      align-items: center !important;
-    }
-    .nav-inner { position: relative; z-index: 1000; }
-    header.nav { z-index: 1000 !important; }
-  }
 </style>
 </head>
 <body>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" onclick="closeMob()">How it works</a>
+  <a href="/#services" onclick="closeMob()">Services</a>
+  <a href="/pricing.html" onclick="closeMob()">Pricing</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://calendly.com/nordassist-" target="_blank" class="m-book" onclick="closeMob()">Book a call →</a>
+</div>
 
 <!-- NAV -->
 <header class="nav">
@@ -364,15 +300,14 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
     <ul class="nav-links">
       <li><a href="/">How it works</a></li>
       <li><a href="/#services">Services</a></li>
-      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/pricing.html" class="active">Pricing</a></li>
       <li><a href="/about.html">About</a></li>
       <li><a href="/#faq">FAQ</a></li>
-      <li><a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary mobile-book-btn">Book a call →</a></li>
     </ul>
-    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
-  
-    <button class="hamburger" id="ham-btn" aria-label="Open menu"><span></span><span></span><span></span></button>
-  </div></header>
+    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary nav-btn-hide">Book a call <span class="arrow">→</span></a>
+    <button class="ham-btn" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
 <!-- HERO -->
 <div class="pricing-hero">
@@ -768,47 +703,23 @@ const obs = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 <script>
-(function(){
-  var btn = document.getElementById('ham-btn');
-  var nav = document.querySelector('.nav-links');
-  var header = document.querySelector('header.nav');
-  if(!btn || !nav) return;
-
-  function openMenu() {
-    btn.classList.add('open');
-    nav.classList.add('open');
+var hamBtn = document.getElementById('hamBtn');
+var mobileMenu = document.getElementById('mobileMenu');
+function closeMob() {
+  hamBtn.classList.remove('is-open');
+  mobileMenu.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+hamBtn.addEventListener('click', function() {
+  var isOpen = mobileMenu.classList.contains('is-open');
+  if (isOpen) {
+    closeMob();
+  } else {
+    hamBtn.classList.add('is-open');
+    mobileMenu.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    if(header) header.style.zIndex = '1000';
   }
-  function closeMenu() {
-    btn.classList.remove('open');
-    nav.classList.remove('open');
-    document.body.style.overflow = '';
-    if(header) header.style.zIndex = '';
-  }
-
-  btn.addEventListener('click', function(e){
-    e.stopPropagation();
-    if(nav.classList.contains('open')) { closeMenu(); } else { openMenu(); }
-  });
-
-  // Close when clicking any link
-  nav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ closeMenu(); });
-  });
-
-  // Close when clicking outside
-  document.addEventListener('click', function(e){
-    if(nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)){
-      closeMenu();
-    }
-  });
-
-  // Close on ESC
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeMenu();
-  });
-})();
+});
 </script>
 </body>
 </html>
