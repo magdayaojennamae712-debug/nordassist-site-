@@ -481,6 +481,63 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
   .reveal.d5{transition-delay:0.5s}
   .reveal.d6{transition-delay:0.6s}
 }
+
+  /* ── MOBILE HAMBURGER NAV ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+    z-index: 300;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  @media (max-width: 720px) {
+    .hamburger { display: flex; }
+    .nav-links {
+      display: none !important;
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column !important;
+      align-items: center;
+      justify-content: center;
+      gap: 0 !important;
+      z-index: 200;
+      padding: 20px 0;
+    }
+    .nav-links.mobile-open {
+      display: flex !important;
+    }
+    .nav-links li, .nav-links a {
+      width: 100%;
+      text-align: center;
+    }
+    .nav-links a {
+      display: block;
+      padding: 18px 40px !important;
+      font-size: 1.2rem !important;
+      font-weight: 500 !important;
+      color: var(--text) !important;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-links a:hover { color: var(--accent) !important; background: var(--bg-soft); }
+    .nav-cta-wrap { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -514,6 +571,9 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       <li><a href="/#faq">FAQ</a></li>
     </nav>
     <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -955,5 +1015,26 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
     }
   });
 </script>
+
+<script>
+(function() {
+  var ham = document.getElementById('hamburger');
+  var nav = document.querySelector('.nav-links');
+  if (!ham || !nav) return;
+  ham.addEventListener('click', function() {
+    ham.classList.toggle('open');
+    nav.classList.toggle('mobile-open');
+    document.body.style.overflow = nav.classList.contains('mobile-open') ? 'hidden' : '';
+  });
+  nav.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      ham.classList.remove('open');
+      nav.classList.remove('mobile-open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
