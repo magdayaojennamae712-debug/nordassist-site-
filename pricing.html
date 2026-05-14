@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- iubenda Cookie Solution -->
-  <script type="text/javascript" src="https://embeds.iubenda.com/widgets/5be2bc16-b2a8-4482-ad28-029631aaddff.js"></script>
+
+  <!-- ============== GOOGLE ANALYTICS 4 ============== -->
+  <!-- Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
+  <!-- Get your ID at: analytics.google.com → Admin → Data Streams → Web stream details -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'page_title': document.title,
+      'page_location': window.location.href,
+      'send_page_view': true
+    });
+    // Track button clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track Book a call clicks
+      document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          gtag('event', 'book_call_click', {
+            'event_category': 'engagement',
+            'event_label': 'book_call_button'
+          });
+        });
+      });
+      // Track email clicks
+      document.querySelectorAll('a[href*="mailto"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          gtag('event', 'email_click', {
+            'event_category': 'engagement',
+            'event_label': 'email_contact'
+          });
+        });
+      });
+    });
+  </script>
+  <!-- ============ END GOOGLE ANALYTICS ============ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Pricing — NordAssist | Simple Monthly Plans</title>
@@ -59,17 +94,6 @@ header.nav{
 .btn .arrow{transition:transform 0.2s}
 .btn:hover .arrow{transform:translateX(4px)}
 @media(max-width:720px){.nav-links{display:none}}
-  .ham-btn{display:none;flex-direction:column;gap:5px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;background:none;border:1px solid #e4e7f0;border-radius:6px;padding:0}
-  .ham-btn span{display:block;width:18px;height:2px;background:#080e1e;border-radius:2px;transition:all 0.25s ease}
-  .ham-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .ham-btn.is-open span:nth-child(2){opacity:0;width:0}
-  .ham-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:0}
-  .mobile-menu.is-open{display:flex}
-  .mobile-menu a{font-family:"Inter",sans-serif;font-size:1.4rem;font-weight:500;color:#080e1e;text-decoration:none;padding:20px 60px;width:100%;text-align:center;border-bottom:1px solid #e4e7f0;transition:background 0.15s}
-  .mobile-menu a:last-child{border-bottom:none}
-  .mobile-menu .m-book{margin-top:28px;background:#0f1e3d;color:#fff!important;border-radius:6px;padding:16px 48px!important;width:auto!important;border:none!important;font-size:1rem!important}
-  @media(max-width:720px){.ham-btn{display:flex}.nav-btn-hide{display:none!important}}
 
 /* EYEBROW */
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.76rem;color:var(--accent);background:var(--accent-soft);padding:5px 14px;border-radius:999px;margin-bottom:22px;letter-spacing:0.06em;font-weight:700;text-transform:uppercase;border:1px solid rgba(15,30,61,0.1)}
@@ -273,65 +297,16 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
   .footer-grid{grid-template-columns:1fr}
   .container{padding:0 20px}
 }
-
-  /* ── EXPANDABLE DETAIL GRID ── */
-  .plan-detail-toggle {
-    width:100%;padding:12px 36px;background:var(--bg-soft);
-    border:none;border-top:1px solid var(--line);
-    font-family:inherit;font-size:0.88rem;color:var(--muted);
-    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-    transition:all 0.2s;
-  }
-  .plan-detail-toggle:hover{background:var(--accent-soft);color:var(--accent)}
-  .plan-detail-toggle .tog-arrow{transition:transform 0.3s;font-size:11px}
-  .plan-detail-toggle.open{color:var(--accent);background:var(--accent-soft)}
-  .plan-detail-toggle.open .tog-arrow{transform:rotate(180deg)}
-
-  .plan-detail-body{
-    display:none;
-    padding:28px 36px;
-    background:var(--bg-soft);
-    border-top:1px solid var(--line);
-  }
-  .plan-detail-body.open{display:block}
-
-  /* Feature icon grid */
-  .detail-feat-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;
-  }
-  .detail-feat-item{
-    background:#fff;border:1px solid var(--line);border-radius:10px;
-    padding:14px 16px;display:flex;align-items:flex-start;gap:12px;
-    transition:all 0.2s;
-  }
-  .detail-feat-item:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-  .dfi-icon{font-size:22px;flex-shrink:0;margin-top:1px}
-  .dfi-text strong{font-size:0.88rem;font-weight:600;color:var(--text);display:block;margin-bottom:3px}
-  .dfi-text span{font-size:0.82rem;color:var(--muted);line-height:1.45}
-
-  .detail-tools-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-  .detail-tools-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-  .detail-tool-pill{font-size:0.75rem;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(15,30,61,0.1);font-weight:500}
-
-  .detail-ideal{padding:14px 18px;background:var(--bg-cream);border-left:3px solid var(--copper);border-radius:0 8px 8px 0;font-size:0.88rem;color:var(--text-soft);line-height:1.55}
-  .detail-ideal strong{color:var(--text);font-weight:600}
-
-  .plan-card.featured .plan-detail-body{background:var(--accent-soft)}
-  .plan-card.featured .detail-feat-item{background:#fff}
-
-  @media(max-width:600px){.detail-feat-grid{grid-template-columns:1fr}}
-
 </style>
+<title>NordAssist Pricing — Dedicated VA Plans from €1,100/month | Finland</title>
+<meta name="description" content="Simple monthly plans for Nordic founders. Starter €1,100/mo (~40hrs) or Growth €1,800/mo (~80hrs). 2-week trial, no long contracts. Live in 5–7 days." />
+<meta name="keywords" content="virtual assistant pricing Finland, VA plans Nordic, executive assistant cost Finland, affordable VA Europe, NordAssist pricing" />
+<link rel="canonical" href="https://nordassist.co/pricing.html" />
+<meta property="og:title" content="NordAssist Pricing — VA Plans from €1,100/month" />
+<meta property="og:description" content="Simple monthly plans. Starter €1,100/mo or Growth €1,800/mo. 2-week trial included. No long contracts." />
+<meta property="og:url" content="https://nordassist.co/pricing.html" />
 </head>
 <body>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/" onclick="closeMob()">How it works</a>
-  <a href="/#services" onclick="closeMob()">Services</a>
-  <a href="/pricing.html" onclick="closeMob()">Pricing</a>
-  <a href="/about.html" onclick="closeMob()">About</a>
-  <a href="/#faq" onclick="closeMob()">FAQ</a>
-  <a href="https://calendly.com/nordassist-" target="_blank" class="m-book" onclick="closeMob()">Book a call →</a>
-</div>
 
 <!-- NAV -->
 <header class="nav">
@@ -348,14 +323,13 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
       NordAssist
     </a>
     <ul class="nav-links">
-      <li><a href="/">How it works</a></li>
+      <li><a href="/#how">How it works</a></li>
       <li><a href="/#services">Services</a></li>
-      <li><a href="/pricing.html" class="active">Pricing</a></li>
+      <li><a href="#" class="active">Pricing</a></li>
       <li><a href="/about.html">About</a></li>
       <li><a href="/#faq">FAQ</a></li>
     </ul>
-    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary nav-btn-hide">Book a call <span class="arrow">→</span></a>
-    <button class="ham-btn" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
   </div>
 </header>
 
@@ -390,45 +364,51 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="plan-feat-group-title">Core support</div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>One dedicated assistant</strong>Always the same person — never a rotating pool.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Inbox &amp; calendar management</strong>Triage, labelling, scheduling, meeting prep.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Admin &amp; follow-up support</strong>Task tracking, follow-ups, document prep, filing.</div></div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>One dedicated assistant</strong>Always the same person — never a rotating pool.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Inbox &amp; calendar management</strong>Triage, labelling, scheduling, meeting prep.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Admin &amp; follow-up support</strong>Task tracking, follow-ups, document prep, filing.</div>
+          </div>
           <div class="plan-feat-group-title">Management &amp; security</div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Account manager &amp; oversight</strong>Your dedicated point of contact — no tickets.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Backup coverage during absences</strong>Trained backup steps in seamlessly.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>GDPR-aligned &amp; NDA-signed</strong>Full confidentiality from day one.</div></div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Account manager &amp; oversight</strong>Your dedicated point of contact — no tickets.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Backup coverage during absences</strong>Trained backup steps in seamlessly.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>GDPR-aligned &amp; NDA-signed</strong>Full confidentiality from day one.</div>
+          </div>
+        </div>
+        <div class="plan-tools">
+          <div class="tools-label">Works in your tools</div>
+          <div class="tools-list">
+            <span class="tool-pill">Gmail</span>
+            <span class="tool-pill">Google Calendar</span>
+            <span class="tool-pill">Notion</span>
+            <span class="tool-pill">Slack</span>
+            <span class="tool-pill">HubSpot</span>
+            <span class="tool-pill">Trello</span>
+            <span class="tool-pill">Calendly</span>
+            <span class="tool-pill">1Password</span>
+          </div>
+        </div>
+        <div class="ideal-strip">
+          <strong>Ideal for:</strong> Solo founders, independent consultants, fractional executives who need 10–15 hours/week of reliable support.
         </div>
         <div class="plan-cta">
           <a href="mailto:hello@nordassist.co?subject=Starter%20plan%20inquiry%20%E2%80%94%20%E2%82%AC1%2C100%2Fmonth&body=Hi%20NordAssist%2C%0A%0AI%27m%20interested%20in%20the%20Starter%20plan%20(~40%20hours%2Fmonth%2C%20%E2%82%AC1%2C100).%0A%0AA%20few%20things%20about%20me%3A%0A-%20Company%3A%20%0A-%20Role%3A%20%0A-%20Top%203%20things%20I%27d%20want%20to%20hand%20off%3A%20%0A%0AHappy%20to%20jump%20on%20a%2030-min%20call.%0A%0AThanks%2C" class="btn btn-secondary">Choose Starter</a>
-          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day.</div>
-        </div>
-        <!-- TOGGLE BUTTON -->
-        <button class="plan-detail-toggle" onclick="toggleDetail('starter')">
-          What's included <span class="tog-arrow">▼</span>
-        </button>
-        <!-- EXPANDABLE DETAIL -->
-        <div class="plan-detail-body" id="detail-starter">
-          <div class="detail-tools-label">What's included</div>
-          <div class="detail-feat-grid">
-            <div class="detail-feat-item"><span class="dfi-icon">📧</span><div class="dfi-text"><strong>Inbox Management</strong><span>Triage, labelling, drafting replies, keeping inbox at zero.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">📅</span><div class="dfi-text"><strong>Calendar Management</strong><span>Scheduling, rescheduling, conflict resolution, meeting prep.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">✈️</span><div class="dfi-text"><strong>Travel Arrangements</strong><span>Flights, hotels, itineraries, visa docs, expense tracking.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">📋</span><div class="dfi-text"><strong>Admin &amp; Follow-ups</strong><span>Task tracking, follow-up emails, document prep, filing.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">🔒</span><div class="dfi-text"><strong>Account Manager</strong><span>Your dedicated point of contact — no tickets, no bots.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">🔄</span><div class="dfi-text"><strong>Backup Coverage</strong><span>Trained backup steps in if your assistant is absent.</span></div></div>
-          </div>
-          <div class="detail-tools-label">Tools your VA works in</div>
-          <div class="detail-tools-list">
-            <span class="detail-tool-pill">Gmail / Outlook</span>
-            <span class="detail-tool-pill">Google Calendar</span>
-            <span class="detail-tool-pill">Notion</span>
-            <span class="detail-tool-pill">Slack</span>
-            <span class="detail-tool-pill">HubSpot</span>
-            <span class="detail-tool-pill">Trello / Asana</span>
-            <span class="detail-tool-pill">1Password</span>
-            <span class="detail-tool-pill">Calendly</span>
-          </div>
-          <div class="detail-ideal"><strong>Ideal for:</strong> Solo founders, independent consultants, and fractional executives who need 10–15 hours/week of reliable support without committing to a full-time hire.</div>
+          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day to book your discovery call.</div>
         </div>
       </div>
 
@@ -445,45 +425,50 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
         <div class="plan-divider"></div>
         <div class="plan-features">
           <div class="plan-feat-group-title">Everything in Starter, plus</div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Near full-time coverage</strong>~80 hours/month — your VA is essentially part of your team.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Priority response in working hours</strong>Same-day response during EU hours. Always first in line.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Light project &amp; ops work</strong>Process docs, team comms, light project coordination.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>CRM management</strong>Pipeline clean, contacts current, data always up to date.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Reporting &amp; board prep</strong>Weekly recaps, briefing notes, investor updates.</div></div>
-          <div class="plan-feat"><div class="feat-check"></div><div class="plan-feat-text"><strong>Dedicated onboarding lead</strong>Hands-on specialist for your first 2 weeks.</div></div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Near full-time coverage</strong>~80 hours/month — your VA is essentially part of your team.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Priority response in working hours</strong>Same-day response during EU hours. Always first in line.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Light project &amp; ops work</strong>Process docs, team comms, light project coordination.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>CRM management</strong>Pipeline clean, contacts current, data always up to date.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Reporting &amp; board prep</strong>Weekly recaps, briefing notes, investor updates.</div>
+          </div>
+          <div class="plan-feat">
+            <div class="feat-check"></div>
+            <div class="plan-feat-text"><strong>Dedicated onboarding lead</strong>Hands-on specialist for your first 2 weeks.</div>
+          </div>
+        </div>
+        <div class="plan-tools">
+          <div class="tools-label">Works in your tools</div>
+          <div class="tools-list">
+            <span class="tool-pill">Google Workspace</span>
+            <span class="tool-pill">Notion / Confluence</span>
+            <span class="tool-pill">Slack / Teams</span>
+            <span class="tool-pill">HubSpot / Salesforce</span>
+            <span class="tool-pill">Jira / Linear</span>
+            <span class="tool-pill">Asana / ClickUp</span>
+            <span class="tool-pill">QuickBooks / Xero</span>
+            <span class="tool-pill">Zoom</span>
+          </div>
+        </div>
+        <div class="ideal-strip">
+          <strong>Ideal for:</strong> Funded startup founders, scaling companies, and small teams who need near-full-time support without local hire overhead.
         </div>
         <div class="plan-cta">
           <a href="mailto:hello@nordassist.co?subject=Growth%20plan%20inquiry%20%E2%80%94%20%E2%82%AC1%2C800%2Fmonth&body=Hi%20NordAssist%2C%0A%0AI%27m%20interested%20in%20the%20Growth%20plan%20(~80%20hours%2Fmonth%2C%20%E2%82%AC1%2C800).%0A%0AA%20few%20things%20about%20me%3A%0A-%20Company%3A%20%0A-%20Role%3A%20%0A-%20Top%203%20things%20I%27d%20want%20to%20hand%20off%3A%20%0A%0AHappy%20to%20jump%20on%20a%2030-min%20call.%0A%0AThanks%2C" class="btn btn-primary">Choose Growth <span class="arrow">→</span></a>
-          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day.</div>
-        </div>
-        <!-- TOGGLE BUTTON -->
-        <button class="plan-detail-toggle" onclick="toggleDetail('growth')">
-          What's included <span class="tog-arrow">▼</span>
-        </button>
-        <!-- EXPANDABLE DETAIL -->
-        <div class="plan-detail-body" id="detail-growth">
-          <div class="detail-tools-label">Everything in Starter, plus</div>
-          <div class="detail-feat-grid">
-            <div class="detail-feat-item"><span class="dfi-icon">⚡</span><div class="dfi-text"><strong>Near Full-Time Coverage</strong><span>~80 hours/month — your VA is essentially part of your team.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">🎯</span><div class="dfi-text"><strong>Priority Response</strong><span>Same-day response during EU working hours. Always first in line.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">📊</span><div class="dfi-text"><strong>Project &amp; Ops Support</strong><span>Light project coordination, process documentation, team comms.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">🤝</span><div class="dfi-text"><strong>Dedicated Onboarding Lead</strong><span>Hands-on onboarding specialist for your first 2 weeks.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">📈</span><div class="dfi-text"><strong>CRM Management</strong><span>Keeping your pipeline, contacts, and data clean and current.</span></div></div>
-            <div class="detail-feat-item"><span class="dfi-icon">📝</span><div class="dfi-text"><strong>Reporting &amp; Summaries</strong><span>Weekly recaps, board prep, briefing notes, investor updates.</span></div></div>
-          </div>
-          <div class="detail-tools-label">Tools your VA works in</div>
-          <div class="detail-tools-list">
-            <span class="detail-tool-pill">Google Workspace</span>
-            <span class="detail-tool-pill">Notion / Confluence</span>
-            <span class="detail-tool-pill">Slack / Teams</span>
-            <span class="detail-tool-pill">HubSpot / Salesforce</span>
-            <span class="detail-tool-pill">Jira / Linear</span>
-            <span class="detail-tool-pill">Asana / ClickUp</span>
-            <span class="detail-tool-pill">1Password</span>
-            <span class="detail-tool-pill">QuickBooks / Xero</span>
-            <span class="detail-tool-pill">Zoom / Google Meet</span>
-          </div>
-          <div class="detail-ideal"><strong>Ideal for:</strong> Funded startup founders, small leadership teams, and scaling companies who need near-full-time operational support — without the cost and overhead of a local hire.</div>
+          <div class="plan-cta-note">Opens an email to hello@nordassist.co. We reply within 1 working day to book your discovery call.</div>
         </div>
       </div>
 
@@ -719,12 +704,7 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 NordAssist Oy. All rights reserved. &nbsp;·&nbsp; <!-- iubenda Privacy & Cookie Policy -->
-  <a href="https://www.iubenda.com/privacy-policy/79337511" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
-  <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-  <a href="https://www.iubenda.com/privacy-policy/79337511/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy">Cookie Policy</a>
-  <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-  <!-- end iubenda --></div>
+      <div>© 2026 NordAssist Oy. All rights reserved.</div>
       <div>
         <a href="/#privacy">Privacy</a> &nbsp;·&nbsp;
         <a href="/#terms">Terms</a> &nbsp;·&nbsp;
@@ -735,22 +715,6 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
 </footer>
 
 <script>
-
-function toggleDetail(plan) {
-  var body = document.getElementById('detail-' + plan);
-  var allBtns = document.querySelectorAll('.plan-detail-toggle');
-  var btn = null;
-  allBtns.forEach(function(b){ if(b.getAttribute('onclick').includes(plan)) btn = b; });
-  var isOpen = body.classList.contains('open');
-  if(isOpen){
-    body.classList.remove('open');
-    if(btn){ btn.classList.remove('open'); btn.querySelector('.tog-arrow').textContent = '▼'; btn.childNodes[0].textContent = "What's included "; }
-  } else {
-    body.classList.add('open');
-    if(btn){ btn.classList.add('open'); btn.querySelector('.tog-arrow').textContent = '▲'; btn.childNodes[0].textContent = "Hide details "; }
-  }
-}
-
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const isOpen = item.classList.contains('open');
@@ -761,25 +725,6 @@ const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
-<script>
-var hamBtn = document.getElementById('hamBtn');
-var mobileMenu = document.getElementById('mobileMenu');
-function closeMob() {
-  hamBtn.classList.remove('is-open');
-  mobileMenu.classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-hamBtn.addEventListener('click', function() {
-  var isOpen = mobileMenu.classList.contains('is-open');
-  if (isOpen) {
-    closeMob();
-  } else {
-    hamBtn.classList.add('is-open');
-    mobileMenu.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  }
-});
 </script>
 </body>
 </html>

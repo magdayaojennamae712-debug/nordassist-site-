@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- iubenda Cookie Solution -->
-  <script type="text/javascript" src="https://embeds.iubenda.com/widgets/5be2bc16-b2a8-4482-ad28-029631aaddff.js"></script>
+
+  <!-- ============== GOOGLE ANALYTICS 4 ============== -->
+  <!-- Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
+  <!-- Get your ID at: analytics.google.com → Admin → Data Streams → Web stream details -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'page_title': document.title,
+      'page_location': window.location.href,
+      'send_page_view': true
+    });
+    // Track button clicks
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track Book a call clicks
+      document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          gtag('event', 'book_call_click', {
+            'event_category': 'engagement',
+            'event_label': 'book_call_button'
+          });
+        });
+      });
+      // Track email clicks
+      document.querySelectorAll('a[href*="mailto"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          gtag('event', 'email_click', {
+            'event_category': 'engagement',
+            'event_label': 'email_contact'
+          });
+        });
+      });
+    });
+  </script>
+  <!-- ============ END GOOGLE ANALYTICS ============ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>About — NordAssist | Our Story & VA Services</title>
@@ -133,7 +168,7 @@ header.nav{
   box-shadow:var(--shadow-lg);
   border:1px solid var(--line);
 }
-.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .photo-badge{
   position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
   background:#fff;border:1px solid var(--line);border-radius:12px;
@@ -348,7 +383,7 @@ section{padding:100px 0;position:relative}
   box-shadow:var(--shadow-lg);border:1px solid var(--line);
   aspect-ratio:3/4;max-height:400px;max-width:300px;
 }
-.founder-img-frame img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block}
+.founder-img-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .founder-name-badge{
   position:absolute;bottom:-18px;left:24px;right:24px;
   background:#fff;border:1px solid var(--line);border-radius:10px;
@@ -483,36 +518,16 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
   .reveal.d5{transition-delay:0.5s}
   .reveal.d6{transition-delay:0.6s}
 }
-
-  /* ===== HAMBURGER ===== */
-  .ham-btn{display:none;flex-direction:column;gap:5px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;background:none;border:1px solid #e4e7f0;border-radius:6px;padding:0;flex-shrink:0}
-  .ham-btn span{display:block;width:18px;height:2px;background:#080e1e;border-radius:2px;transition:all 0.25s ease}
-  .ham-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .ham-btn.is-open span:nth-child(2){opacity:0;width:0}
-  .ham-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:0}
-  .mobile-menu.is-open{display:flex}
-  .mobile-menu a{font-family:"DM Sans",sans-serif;font-size:1.35rem;font-weight:500;color:#080e1e;text-decoration:none;padding:20px 60px;width:100%;text-align:center;border-bottom:1px solid #e4e7f0;transition:background 0.15s}
-  .mobile-menu a:last-of-type{border-bottom:none}
-  .mobile-menu .m-book{margin-top:24px;background:#0f1e3d;color:#fff!important;border-radius:6px;padding:15px 44px!important;width:auto!important;border:none!important;font-size:1rem!important;display:inline-block!important;text-decoration:none!important}
-  @media(max-width:720px){
-    .ham-btn{display:flex}
-    .nav-hide{display:none!important}
-  }
-
 </style>
+<title>About NordAssist — Filipino Founder in Finland | Jennamae Saarela</title>
+<meta name="description" content="NordAssist was founded by Jennamae Saarela, a Filipino entrepreneur based in Oulu, Finland. We bridge Filipino talent with Nordic executives needing dedicated VA support." />
+<meta name="keywords" content="NordAssist about, Filipino VA agency Finland, Jennamae Saarela, Oulu Finland VA agency, Nordic VA agency founder" />
+<link rel="canonical" href="https://nordassist.co/about.html" />
+<meta property="og:title" content="About NordAssist — Built from Two Worlds. One Mission." />
+<meta property="og:description" content="Founded by Jennamae Saarela, a Filipino entrepreneur in Oulu, Finland. Connecting Nordic founders with dedicated Filipino Executive VAs." />
+<meta property="og:url" content="https://nordassist.co/about.html" />
 </head>
 <body>
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/">How it works</a>
-  <a href="/#services">Services</a>
-  <a href="/pricing.html">Pricing</a>
-  <a href="/about.html">About</a>
-  <a href="/#faq">FAQ</a>
-  <a href="https://calendly.com/nordassist-" target="_blank" class="m-book">Book a call →</a>
-</div>
-
 
 <!-- NAV -->
 <header class="nav">
@@ -542,9 +557,7 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       <li><a href="#" class="active">About</a></li>
       <li><a href="/#faq">FAQ</a></li>
     </nav>
-    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary nav-hide">Book a call <span class="arrow">→</span></a>
-  
-    <button class="ham-btn" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
   </div>
 </header>
 
@@ -960,12 +973,7 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 NordAssist Oy. All rights reserved. &nbsp;·&nbsp; <!-- iubenda Privacy & Cookie Policy -->
-  <a href="https://www.iubenda.com/privacy-policy/79337511" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
-  <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-  <a href="https://www.iubenda.com/privacy-policy/79337511/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy">Cookie Policy</a>
-  <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-  <!-- end iubenda --></div>
+      <div>© 2026 NordAssist Oy. All rights reserved.</div>
       <div>
         <a href="/#privacy">Privacy</a> &nbsp;·&nbsp;
         <a href="/#terms">Terms</a> &nbsp;·&nbsp;
@@ -990,32 +998,6 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       els.forEach(function(el) { el.classList.add("in"); });
     }
   });
-</script>
-<script>
-(function(){
-  var btn = document.getElementById('hamBtn');
-  var menu = document.getElementById('mobileMenu');
-  if(!btn||!menu) return;
-  btn.addEventListener('click', function(){
-    var open = menu.classList.contains('is-open');
-    if(open){
-      btn.classList.remove('is-open');
-      menu.classList.remove('is-open');
-      document.body.style.overflow='';
-    } else {
-      btn.classList.add('is-open');
-      menu.classList.add('is-open');
-      document.body.style.overflow='hidden';
-    }
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      btn.classList.remove('is-open');
-      menu.classList.remove('is-open');
-      document.body.style.overflow='';
-    });
-  });
-})();
 </script>
 </body>
 </html>
