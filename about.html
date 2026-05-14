@@ -482,85 +482,36 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
   .reveal.d6{transition-delay:0.6s}
 }
 
-/* ===== HAMBURGER MOBILE ===== */
-.ham {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  padding: 8px;
-  background: none;
-  border: none;
-  z-index: 10002;
-  position: relative;
-}
-.ham span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text, #0f1e3d);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-.ham.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.ham.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-.mob-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: #ffffff;
-  z-index: 10001;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-}
-.mob-overlay a {
-  font-family: 'Inter', 'DM Sans', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #0f1e3d;
-  text-decoration: none;
-  padding: 20px 60px;
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #e4e7f0;
-  transition: background 0.15s, color 0.15s;
-  display: block;
-}
-.mob-overlay a:last-child { border-bottom: none; }
-.mob-overlay a:hover { background: #f4f6fb; color: #b8704e; }
-.mob-overlay .mob-cta {
-  margin-top: 28px;
-  background: #0f1e3d !important;
-  color: #fff !important;
-  border-radius: 8px;
-  padding: 16px 48px !important;
-  width: auto !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  border: none !important;
-}
-
-@media (max-width: 720px) {
-  .ham { display: flex !important; }
-  .nav-links { display: none !important; }
-  .nav-book-btn { display: none !important; }
-}
-
+  /* ===== HAMBURGER NAV ===== */
+  .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px 6px;background:none;border:none;position:relative;z-index:200}
+  .ham span{display:block;width:22px;height:2px;background:#0f1e3d;border-radius:2px;transition:transform .3s,opacity .3s}
+  .ham.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .ham.is-open span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .ham.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  #mobOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;flex-direction:column;align-items:center;justify-content:center}
+  #mobOverlay.is-open{display:flex}
+  #mobOverlay a{display:block;width:100%;text-align:center;padding:20px 40px;font-family:'Inter',sans-serif;font-size:1.2rem;font-weight:500;color:#0f1e3d;text-decoration:none;border-bottom:1px solid #e4e7f0}
+  #mobOverlay a:last-of-type{border-bottom:none}
+  #mobOverlay a:hover{background:#f4f6fb;color:#b8704e}
+  #mobOverlay .mcta{margin-top:24px;background:#0f1e3d!important;color:#fff!important;border-radius:8px;padding:14px 44px!important;width:auto!important;font-weight:600!important;border-bottom:none!important}
+  #mobOverlay .mcta:hover{background:#1e3560!important}
+  @media(max-width:720px){
+    .ham{display:flex}
+    .nav-links{display:none!important}
+    .nbtn{display:none!important}
+    header.nav{z-index:200!important}
+  }
+  /* ===== END HAMBURGER ===== */
 </style>
 </head>
 <body>
-<div class="mob-overlay" id="mobOverlay">
-  <a href="/" onclick="closeMob()">How it works</a>
+<div id="mobOverlay">
+  <a href="/#how" onclick="closeMob()">How it works</a>
   <a href="/#services" onclick="closeMob()">Services</a>
   <a href="/pricing.html" onclick="closeMob()">Pricing</a>
   <a href="/about.html" onclick="closeMob()">About</a>
   <a href="/#faq" onclick="closeMob()">FAQ</a>
-  <a href="https://calendly.com/nordassist-" target="_blank" class="mob-cta" onclick="closeMob()">Book a call →</a>
+  <a href="https://calendly.com/nordassist-" target="_blank" class="mcta" onclick="closeMob()">Book a call →</a>
 </div>
 
 <!-- NAV -->
@@ -585,16 +536,17 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       NordAssist
     </a>
     <nav class="nav-links">
-      <a href="/">How it works</a>
-      <a href="/#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#services">Services</a>
       <a href="/pricing.html">Pricing</a>
-      <a href="/about.html">About</a>
-      <a href="/#faq">FAQ</a>
+      <a href="/about.html" class="active">About</a>
+      <a href="#faq">FAQ</a>
     </nav>
-    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary nav-book-btn">Book a call <span class="arrow">→</span></a>
-    <button class="ham" id="hamBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary nbtn">Book a call <span class="arrow">→</span></a>
+    <button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
+
 
 <!-- HERO -->
 <section class="hero">
@@ -1034,54 +986,17 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
     }
   });
 </script>
-
 <script>
-// ===== HAMBURGER MENU =====
-(function() {
-  var btn = document.getElementById('hamBtn');
-  var overlay = document.getElementById('mobOverlay');
-  
-  if (!btn || !overlay) {
-    console.log('Hamburger: elements not found');
-    return;
-  }
-
-  function openMenu() {
-    overlay.style.display = 'flex';
-    btn.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    overlay.style.display = 'none';
-    btn.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Make closeMob global so onclick="closeMob()" works
-  window.closeMob = closeMenu;
-
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (overlay.style.display === 'flex') {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
-
-  // Close on ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  // Close when clicking outside
-  overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) closeMenu();
-  });
+(function(){
+  var b=document.getElementById('hamBtn');
+  var o=document.getElementById('mobOverlay');
+  if(!b||!o)return;
+  function open(){b.classList.add('is-open');o.classList.add('is-open');document.body.style.overflow='hidden';}
+  function close(){b.classList.remove('is-open');o.classList.remove('is-open');document.body.style.overflow='';}
+  window.closeMob=close;
+  b.addEventListener('click',function(e){e.stopPropagation();o.classList.contains('is-open')?close():open();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
 })();
 </script>
-
 </body>
 </html>
