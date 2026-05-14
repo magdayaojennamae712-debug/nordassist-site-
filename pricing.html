@@ -1,43 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <!-- ============== GOOGLE ANALYTICS 4 ============== -->
-  <!-- Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
-  <!-- Get your ID at: analytics.google.com → Admin → Data Streams → Web stream details -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      'page_title': document.title,
-      'page_location': window.location.href,
-      'send_page_view': true
-    });
-    // Track button clicks
-    document.addEventListener('DOMContentLoaded', function() {
-      // Track Book a call clicks
-      document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          gtag('event', 'book_call_click', {
-            'event_category': 'engagement',
-            'event_label': 'book_call_button'
-          });
-        });
-      });
-      // Track email clicks
-      document.querySelectorAll('a[href*="mailto"]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          gtag('event', 'email_click', {
-            'event_category': 'engagement',
-            'event_label': 'email_contact'
-          });
-        });
-      });
-    });
-  </script>
-  <!-- ============ END GOOGLE ANALYTICS ============ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Pricing — NordAssist | Simple Monthly Plans</title>
@@ -297,16 +260,56 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
   .footer-grid{grid-template-columns:1fr}
   .container{padding:0 20px}
 }
+
+/* ===== MOBILE HAMBURGER ===== */
+.ham { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; z-index:10001; position:relative; }
+.ham span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all 0.3s ease; }
+.ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+.mob-overlay {
+  display:none; position:fixed; inset:0;
+  background:#fff; z-index:10000;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:0;
+}
+.mob-overlay.open { display:flex; }
+.mob-overlay a {
+  font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:500;
+  color:var(--text); text-decoration:none;
+  padding:20px 60px; width:100%; text-align:center;
+  border-bottom:1px solid var(--line);
+  transition:background 0.15s, color 0.15s;
+}
+.mob-overlay a:last-of-type { border-bottom:none; }
+.mob-overlay a:hover { background:var(--bg-soft); color:var(--accent); }
+.mob-overlay .mob-cta {
+  margin-top:28px;
+  background:var(--accent); color:#fff !important;
+  border-radius:8px; padding:15px 48px !important;
+  width:auto !important; border:none !important;
+  font-size:1rem !important; font-weight:600 !important;
+}
+.mob-overlay .mob-cta:hover { background:var(--accent-hover,#1e3560) !important; }
+
+@media (max-width:720px) {
+  .ham { display:flex; }
+  .nav-links { display:none !important; }
+  .nav-book-btn { display:none !important; }
+}
+
 </style>
-<title>NordAssist Pricing — Dedicated VA Plans from €1,100/month | Finland</title>
-<meta name="description" content="Simple monthly plans for Nordic founders. Starter €1,100/mo (~40hrs) or Growth €1,800/mo (~80hrs). 2-week trial, no long contracts. Live in 5–7 days." />
-<meta name="keywords" content="virtual assistant pricing Finland, VA plans Nordic, executive assistant cost Finland, affordable VA Europe, NordAssist pricing" />
-<link rel="canonical" href="https://nordassist.co/pricing.html" />
-<meta property="og:title" content="NordAssist Pricing — VA Plans from €1,100/month" />
-<meta property="og:description" content="Simple monthly plans. Starter €1,100/mo or Growth €1,800/mo. 2-week trial included. No long contracts." />
-<meta property="og:url" content="https://nordassist.co/pricing.html" />
 </head>
 <body>
+<div class="mob-overlay" id="mobOverlay">
+  <a href="/" onclick="closeMob()">How it works</a>
+  <a href="/#services" onclick="closeMob()">Services</a>
+  <a href="/pricing.html" onclick="closeMob()">Pricing</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://calendly.com/nordassist-" target="_blank" class="mob-cta" onclick="closeMob()">Book a call →</a>
+</div>
 
 <!-- NAV -->
 <header class="nav">
@@ -329,7 +332,8 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:60px 0 32px}
       <li><a href="/about.html">About</a></li>
       <li><a href="/#faq">FAQ</a></li>
     </ul>
-    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+    <a href="https://calendly.com/nordassist-" target="_blank" class="btn btn-primary nav-book-btn">Book a call <span class="arrow">→</span></a>
+    <button class="ham" id="hamBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 

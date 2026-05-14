@@ -1285,6 +1285,14 @@
 </style>
 </head>
 <body>
+<div class="mob-overlay" id="mobOverlay">
+  <a href="#how" onclick="closeMob()">How it works</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="/pricing.html" onclick="closeMob()">Pricing</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://calendly.com/nordassist-" target="_blank" class="mob-cta" onclick="closeMob()">Book a call →</a>
+</div>
 
 <!-- ============== NAV ============== -->
 <header class="nav">
@@ -1310,10 +1318,12 @@
     <nav class="nav-links">
       <a href="#how">How it works</a>
       <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/about.html">About</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary nav-book-btn">Book a call <span class="arrow">→</span></a>
+    <button class="ham" id="hamBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -1918,6 +1928,45 @@
   .detail-features { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) { .psteps { grid-template-columns: 1fr; } }
+
+/* ===== MOBILE HAMBURGER ===== */
+.ham { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; z-index:10001; position:relative; }
+.ham span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all 0.3s ease; }
+.ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+.mob-overlay {
+  display:none; position:fixed; inset:0;
+  background:#fff; z-index:10000;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:0;
+}
+.mob-overlay.open { display:flex; }
+.mob-overlay a {
+  font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:500;
+  color:var(--text); text-decoration:none;
+  padding:20px 60px; width:100%; text-align:center;
+  border-bottom:1px solid var(--line);
+  transition:background 0.15s, color 0.15s;
+}
+.mob-overlay a:last-of-type { border-bottom:none; }
+.mob-overlay a:hover { background:var(--bg-soft); color:var(--accent); }
+.mob-overlay .mob-cta {
+  margin-top:28px;
+  background:var(--accent); color:#fff !important;
+  border-radius:8px; padding:15px 48px !important;
+  width:auto !important; border:none !important;
+  font-size:1rem !important; font-weight:600 !important;
+}
+.mob-overlay .mob-cta:hover { background:var(--accent-hover,#1e3560) !important; }
+
+@media (max-width:720px) {
+  .ham { display:flex; }
+  .nav-links { display:none !important; }
+  .nav-book-btn { display:none !important; }
+}
+
 </style>
 
 <section id="pricing" style="background: var(--bg-soft);">

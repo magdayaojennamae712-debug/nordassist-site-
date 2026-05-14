@@ -1,43 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <!-- ============== GOOGLE ANALYTICS 4 ============== -->
-  <!-- Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
-  <!-- Get your ID at: analytics.google.com → Admin → Data Streams → Web stream details -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      'page_title': document.title,
-      'page_location': window.location.href,
-      'send_page_view': true
-    });
-    // Track button clicks
-    document.addEventListener('DOMContentLoaded', function() {
-      // Track Book a call clicks
-      document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          gtag('event', 'book_call_click', {
-            'event_category': 'engagement',
-            'event_label': 'book_call_button'
-          });
-        });
-      });
-      // Track email clicks
-      document.querySelectorAll('a[href*="mailto"]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          gtag('event', 'email_click', {
-            'event_category': 'engagement',
-            'event_label': 'email_contact'
-          });
-        });
-      });
-    });
-  </script>
-  <!-- ============ END GOOGLE ANALYTICS ============ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>About — NordAssist | Our Story & VA Services</title>
@@ -518,16 +481,56 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
   .reveal.d5{transition-delay:0.5s}
   .reveal.d6{transition-delay:0.6s}
 }
+
+/* ===== MOBILE HAMBURGER ===== */
+.ham { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; z-index:10001; position:relative; }
+.ham span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all 0.3s ease; }
+.ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+.mob-overlay {
+  display:none; position:fixed; inset:0;
+  background:#fff; z-index:10000;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:0;
+}
+.mob-overlay.open { display:flex; }
+.mob-overlay a {
+  font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:500;
+  color:var(--text); text-decoration:none;
+  padding:20px 60px; width:100%; text-align:center;
+  border-bottom:1px solid var(--line);
+  transition:background 0.15s, color 0.15s;
+}
+.mob-overlay a:last-of-type { border-bottom:none; }
+.mob-overlay a:hover { background:var(--bg-soft); color:var(--accent); }
+.mob-overlay .mob-cta {
+  margin-top:28px;
+  background:var(--accent); color:#fff !important;
+  border-radius:8px; padding:15px 48px !important;
+  width:auto !important; border:none !important;
+  font-size:1rem !important; font-weight:600 !important;
+}
+.mob-overlay .mob-cta:hover { background:var(--accent-hover,#1e3560) !important; }
+
+@media (max-width:720px) {
+  .ham { display:flex; }
+  .nav-links { display:none !important; }
+  .nav-book-btn { display:none !important; }
+}
+
 </style>
-<title>About NordAssist — Filipino Founder in Finland | Jennamae Saarela</title>
-<meta name="description" content="NordAssist was founded by Jennamae Saarela, a Filipino entrepreneur based in Oulu, Finland. We bridge Filipino talent with Nordic executives needing dedicated VA support." />
-<meta name="keywords" content="NordAssist about, Filipino VA agency Finland, Jennamae Saarela, Oulu Finland VA agency, Nordic VA agency founder" />
-<link rel="canonical" href="https://nordassist.co/about.html" />
-<meta property="og:title" content="About NordAssist — Built from Two Worlds. One Mission." />
-<meta property="og:description" content="Founded by Jennamae Saarela, a Filipino entrepreneur in Oulu, Finland. Connecting Nordic founders with dedicated Filipino Executive VAs." />
-<meta property="og:url" content="https://nordassist.co/about.html" />
 </head>
 <body>
+<div class="mob-overlay" id="mobOverlay">
+  <a href="/" onclick="closeMob()">How it works</a>
+  <a href="/#services" onclick="closeMob()">Services</a>
+  <a href="/pricing.html" onclick="closeMob()">Pricing</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
+  <a href="/#faq" onclick="closeMob()">FAQ</a>
+  <a href="https://calendly.com/nordassist-" target="_blank" class="mob-cta" onclick="closeMob()">Book a call →</a>
+</div>
 
 <!-- NAV -->
 <header class="nav">
@@ -551,13 +554,14 @@ footer{background:var(--bg-dark);color:#8a96aa;padding:72px 0 36px}
       NordAssist
     </a>
     <nav class="nav-links">
-      <li><a href="/#how">How it works</a></li>
-      <li><a href="/#services">Services</a></li>
-      <li><a href="/pricing.html">Pricing</a></li>
-      <li><a href="#" class="active">About</a></li>
-      <li><a href="/#faq">FAQ</a></li>
+      <a href="/">How it works</a>
+      <a href="/#services">Services</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/about.html" class="active">About</a>
+      <a href="/#faq">FAQ</a>
     </nav>
-    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+    <a href="https://calendly.com/nordassist-" target="_blank" rel="noopener" class="btn btn-primary nav-book-btn">Book a call <span class="arrow">→</span></a>
+    <button class="ham" id="hamBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
